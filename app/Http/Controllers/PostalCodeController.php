@@ -15,7 +15,8 @@ class PostalCodeController extends Controller
      */
     public function index()
     {
-        //
+        $postalCodes = PostalCode::paginate(50)->all();
+        return view('postal_codes.index', ['postalCodes' => $postalCodes]);
     }
 
     /**
