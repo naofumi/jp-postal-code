@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class PostalCode extends Model
 {
     use HasFactory;
+
+    public function scopeDuplicatedPostalCode($query)
+    {
+        // Builder objectにチェーンしていくと、元のBuilderが
+        // mutateされてしまう。そこでcloneしておいて、元のものを
+        // そのままで残しておかないと、2回目のクエリがうまくいかない。
+        $clonedQuery = $query->clone();
+        $duplicatedPostalCodes = $clonedQuery->selectRaw('postal_code, count(*) as count')
+                                        ->groupBy('postal_code')
+                                        ->having('count', '>', 1)->pluck('postal_code');
+        return $query->whereIn('postal_code', $duplicatedPostalCodes)->orderBy('postal_code', 'asc');
+    }
 }

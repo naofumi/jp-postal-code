@@ -15,7 +15,9 @@ class PostalCodeController extends Controller
      */
     public function index()
     {
-        $postalCodes = PostalCode::paginate(50);
+        $postalCodes = PostalCode::orderBy('postal_code', 'asc')
+                                ->duplicatedPostalCode()
+                                ->paginate(50);
         return view('postal_codes.index', ['postalCodes' => $postalCodes]);
     }
 
