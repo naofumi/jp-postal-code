@@ -1,3 +1,7 @@
+@extends('layouts.application')
+@section('title', '郵便番号一覧')
+
+@section('content')
 <table class="table">
 	<tr>
 		<th>Postal Code</th>
@@ -14,3 +18,7 @@
 		</tr>
 	@endforeach
 </table>
+
+{{ $postalCodes->links() }}
+
+@endsection
