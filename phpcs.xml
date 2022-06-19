@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- https://www.twilio.com/blog/improving-php-code-quality-php-codesniffer-phpcs-laravel -->
+<ruleset name="PHP_CodeSniffer">
+    <description>PHPCS configuration file.</description>
+    <!-- check all files in the app directory, feel free to add more files with:
+<file>FOLDER NAME</file>
+-->
+    <file>app</file>
+    <!-- exclude our migrations directory from the violation check-->
+    <exclude-pattern>*/migrations/*</exclude-pattern>
+    <!-- Our base rule: set to PSR12-->
+    <rule ref="PSR12" />
+    <!-- https://github.com/squizlabs/PHP_CodeSniffer/blob/master/phpcs.xml.dist -->
+    <rule ref="Squiz.NamingConventions.ValidVariableName" />
+    <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+        <severity>0</severity>
+    </rule>
+    <!-- ""が不要な場合は''に統一する -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage" />
+
+    <!-- Put Experimental after here -->
+    <!-- http://edorian.github.io/php-coding-standard-generator/#phpcs -->
+    <!-- https://gist.github.com/topazas/057ef1cf4fd412e8c8e866e5ba5119bc -->
+    <!-- https://github.com/squizlabs/PHP_CodeSniffer/blob/master/phpcs.xml.dist -->
+    <!-- We use custom indent rules for arrays -->
+    <rule ref="Generic.Arrays.ArrayIndent"/>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.KeyNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.ValueNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine">
+        <severity>0</severity>
+    </rule>
+    <!-- Only one argument per line in multi-line function calls -->
+<!--     <rule ref="PEAR.Functions.FunctionCallSignature">
+        <properties>
+            <property name="allowMultipleArguments" value="false"/>
+        </properties>
+    </rule> -->
+</ruleset>
