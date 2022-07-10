@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostalCodeRequest;
 use App\Http\Requests\UpdatePostalCodeRequest;
 use App\Models\PostalCode;
+use Illuminate\Http\Request;
 
 class PostalCodeController extends Controller
 {
@@ -13,12 +14,15 @@ class PostalCodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $postalCodes = PostalCode::orderBy('postal_code', 'asc')
-                                ->duplicatedPostalCode()
-                                ->paginate(50);
-        return view('postal_codes.index', ['postalCodes' => $postalCodes]);
+                                ->prefecture($request->input('prefecture'))
+                                ->duplicatedPostalCode($request->input('type') == 'duplicate')
+                                ->paginate(50)->withQueryString();
+        $prefectures = PostalCode::select('prefecture')->groupBy('prefecture')->pluck('prefecture');
+        return view('postal_codes.index', ['postalCodes' => $postalCodes,
+                                           'prefectures' => $prefectures]);
     }
 
     /**
