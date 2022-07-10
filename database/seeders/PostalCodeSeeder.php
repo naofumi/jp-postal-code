@@ -22,10 +22,10 @@ class PostalCodeSeeder extends Seeder
             $utf8Row = array_map(function($value) {
                                         return iconv('SJIS', 'UTF-8', $value);
                                     }, $row);
-            echo 'reading ' . $utf8Row[2] . "\n";
+            echo 'reading postal code: ' . $utf8Row[2] . "\n";
             // 1000行読んだらDBにinsertする
             if (sizeof($dataStash) == 1000) {
-                echo "##### insert into database #######\n";
+                echo "##### inserting 1000 entries into database #######\n";
                 PostalCode::insert($dataStash);
                 $dataStash = [];
             }
@@ -37,7 +37,9 @@ class PostalCodeSeeder extends Seeder
             ]);
         }
         // 残りをinsert
+        echo "##### inserting remaining " . sizeof($dataStash) . " entries into database #######\n";
         PostalCode::insert($dataStash);
         fclose($handle);
+        echo "##### Success #####";
     }
 }
