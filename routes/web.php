@@ -17,5 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('postal_codes', 'App\Http\Controllers\PostalCodeController');
+Route::get('/postal_codes/search',
+           ['App\Http\Controllers\PostalCodeController', 'search'])
+       ->name('postal_codes.search');
 
+Route::resource('postal_codes', 'App\Http\Controllers\PostalCodeController');

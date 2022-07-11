@@ -25,6 +25,14 @@ class PostalCodeController extends Controller
                                            'prefectures' => $prefectures]);
     }
 
+    public function search(Request $request)
+    {
+        $postalCodes = PostalCode::orderBy('postal_code', 'asc')
+                                ->partialPostalCode($request->get('postal_code'))
+                                ->limit(5)->get();
+        return view('postal_codes.search', ['postalCodes' => $postalCodes]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

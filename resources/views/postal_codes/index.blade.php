@@ -19,8 +19,14 @@ function buttonActive($name)
 @section('title', '郵便番号一覧')
 
 @section('content')
+<nav>
+	<ol>
+		<li><a href="/postal_codes/">郵便番号一覧</a></li>
+		<li><a href="/postal_codes/search">検索</a></li>
+	</ol>
+</nav>
 <fieldset>
-	<form action="" method="get" class="" onChange="this.submit()">
+	<form action="" method="get" class="" onChange="this.requestSubmit()">
 		<legend>絞り込み</legend>
 		<select name="prefecture" id="prefecture-select">
 			@foreach ($prefectures as $prefecture)

@@ -29,4 +29,32 @@ class PostalCode extends Model
     {
         return $query->where('prefecture', $prefecture);
     }
+
+    public function scopePartialPostalCode($query, $postalCode)
+    {
+        $normalizedPostalCode = PostalCode::normalizePostalCode($postalCode);
+        if (strlen($normalizedPostalCode) > 0) {
+            return $query->where('postal_code', 'like', "{$normalizedPostalCode}%");
+        } else {
+            # force return 0 results when $postalCode is blank.
+            return $query->where('postal_code', 9999999);
+        }
+    }
+
+    public function formattedPostalCode()
+    {
+        $postalCode = $this->postal_code;
+
+        if (strpos($postalCode, '-') === false) {
+            return substr($postalCode, 0, 3) . '-' . substr($postalCode, 3, 4);
+        } else {
+            return $postalCode;
+        }
+    }
+
+    private static function normalizePostalCode($postalCode)
+    {
+        $postalCode = mb_convert_kana($postalCode, 'a');
+        return preg_replace('/\D/', '', $postalCode);
+    }
 }
