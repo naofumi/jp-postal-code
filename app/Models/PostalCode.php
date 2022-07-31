@@ -27,13 +27,17 @@ class PostalCode extends Model
 
     public function scopePrefecture($query, $prefecture)
     {
-        return $query->where('prefecture', $prefecture);
+        if ($prefecture) {
+            return $query->where('prefecture', $prefecture);
+        } else {
+            return $query;
+        }
     }
 
     public function scopePartialPostalCode($query, $postalCode)
     {
         $normalizedPostalCode = PostalCode::normalizePostalCode($postalCode);
-        if (strlen($normalizedPostalCode) > 0) {
+        if ($normalizedPostalCode && strlen($normalizedPostalCode) > 0) {
             return $query->where('postal_code', 'like', "{$normalizedPostalCode}%");
         } else {
             # force return 0 results when $postalCode is blank.
@@ -54,6 +58,8 @@ class PostalCode extends Model
 
     private static function normalizePostalCode($postalCode)
     {
+        if (!$postalCode) { return $postalCode; };
+
         $postalCode = mb_convert_kana($postalCode, 'a');
         return preg_replace('/\D/', '', $postalCode);
     }
