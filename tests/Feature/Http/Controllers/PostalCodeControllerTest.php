@@ -25,17 +25,20 @@ class PostalCodeControllerTest extends TestCase
                                 ]);
     }
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_index()
+    public function test_index_with_no_query_paramters()
     {
-
         $response = $this->get('/postal_codes');
 
         $response->assertStatus(200);
         $response->assertSee('多摩区生田');
     }
+
+    public function test_index_with_matching_prefecture()
+    {
+        $response = $this->get('/postal_codes', ['prefecture' => '神奈川県']);
+
+        $response->assertStatus(200);
+        $response->assertSee('多摩区生田');
+    }
+
 }
