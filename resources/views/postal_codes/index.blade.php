@@ -1,18 +1,4 @@
 @php
-function selectedPrefecture()
-{
-	return request()->get('prefecture');
-}
-
-function buttonUrl($name)
-{
-	return "?prefecture=" . selectedPrefecture() . "&type=" . $name;
-}
-
-function buttonActive($name)
-{
-	return ($name == request()->get('type')) ? 'active' : '' ;
-}
 @endphp
 
 @extends('layouts.application')
@@ -29,6 +15,7 @@ function buttonActive($name)
 	<form action="" method="get" class="" onChange="this.requestSubmit()">
 		<legend>絞り込み</legend>
 		<select name="prefecture" id="prefecture-select">
+			<option {{ selectedPrefecture() ? '' : 'selected' }}></option>
 			@foreach ($prefectures as $prefecture)
 				<option value="{{ $prefecture }}"
 						{{ $prefecture == selectedPrefecture() ? 'selected' : '' }}>
