@@ -35,7 +35,7 @@ class PostalCodeControllerTest extends TestCase
 
     public function testIndexWithMatchingPrefecture()
     {
-        $response = $this->get('/postal_codes', ['prefecture' => '神奈川県']);
+        $response = $this->get('/postal_codes?prefecture=神奈川県');
 
         $response->assertStatus(200);
         $response->assertSee('多摩区生田');
