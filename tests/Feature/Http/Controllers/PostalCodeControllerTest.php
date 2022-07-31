@@ -41,4 +41,12 @@ class PostalCodeControllerTest extends TestCase
         $response->assertSee('多摩区生田');
     }
 
+    public function testIndexWithNonMatchingPrefecture()
+    {
+        $response = $this->get('/postal_codes?prefecture=東京都');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('多摩区生田');
+    }
+
 }
