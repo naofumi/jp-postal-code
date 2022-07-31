@@ -25,7 +25,7 @@ class PostalCodeControllerTest extends TestCase
                                 ]);
     }
 
-    public function test_index_with_no_query_paramters()
+    public function testIndexWithNoQueryParamters()
     {
         $response = $this->get('/postal_codes');
 
@@ -33,7 +33,7 @@ class PostalCodeControllerTest extends TestCase
         $response->assertSee('多摩区生田');
     }
 
-    public function test_index_with_matching_prefecture()
+    public function testIndexWithMatchingPrefecture()
     {
         $response = $this->get('/postal_codes', ['prefecture' => '神奈川県']);
 
