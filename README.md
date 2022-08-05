@@ -9,8 +9,10 @@ URL: /postal_codes
     2. Method 2: Upload through the web interface (WIP)
 2. Search postal codes
     1. Input postal codes into the input field.
-    2. Results are real-time updated using HotWire as the SPA driver.
-3. Analyse postal codes through the admin interface.
+    2. Results are real-time updated using HotWire TurboFrames.
+3. Analyse postal codes through the admin interface
+    1. Identify postal codes that refer to two separate address strings.
+    2. Drill down by attributes
 
 
 ### Development environment
