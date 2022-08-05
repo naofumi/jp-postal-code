@@ -20,9 +20,7 @@ class PostalCodeController extends Controller
                                 ->prefecture($request->input('prefecture'))
                                 ->duplicatedPostalCode($request->input('type') == 'duplicate')
                                 ->paginate(50)->withQueryString();
-        $prefectures = PostalCode::select('prefecture')->groupBy('prefecture')->pluck('prefecture');
-        return view('postal_codes.index', ['postalCodes' => $postalCodes,
-                                           'prefectures' => $prefectures]);
+        return view('postal_codes.index', ['postalCodes' => $postalCodes]);
     }
 
     public function search(Request $request)

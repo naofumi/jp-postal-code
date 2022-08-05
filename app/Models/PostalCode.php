@@ -56,6 +56,11 @@ class PostalCode extends Model
         }
     }
 
+    public static function prefectures()
+    {
+        return PostalCode::select('prefecture')->groupBy('prefecture')->pluck('prefecture');
+    }
+
     private static function normalizePostalCode($postalCode)
     {
         if (!$postalCode) { return $postalCode; };

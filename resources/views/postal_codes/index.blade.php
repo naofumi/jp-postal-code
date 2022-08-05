@@ -1,4 +1,6 @@
 @php
+use \App\Helpers\PrefectureHelper;
+use App\Models\PostalCode;
 @endphp
 
 @extends('layouts.application')
@@ -15,10 +17,13 @@
 	<form action="" method="get" class="" onChange="this.requestSubmit()">
 		<legend>絞り込み</legend>
 		<select name="prefecture" id="prefecture-select">
-			<option {{ selectedPrefecture() ? '' : 'selected' }}></option>
-			@foreach ($prefectures as $prefecture)
+			<option {{ request()->get('prefecture') ? '' : 'selected' }}></option>
+			@foreach (PostalCode::prefectures() as $prefecture)
+				@php
+					$selected = ($prefecture == request()->get('prefecture'));
+				@endphp
 				<option value="{{ $prefecture }}"
-						{{ $prefecture == selectedPrefecture() ? 'selected' : '' }}>
+						{{ $selected ? 'selected' : '' }}>
 					{{ $prefecture }}
 				</option>
 			@endforeach
@@ -27,7 +32,7 @@
 		<input type="hidden" value="{{ request()->get('type') }}">
 
 		<div class="btn-group" role="group" aria-label="Basic example">
-		  <a href={{ buttonUrl('') }} class="btn btn-secondary {{ buttonActive('') }}">
+		  <a href={{ buttonUrl('') }} class="btn btn-secondary {{ buttonActive('') }}" >
 		  	すべて
 		  </a>
 		  <a href={{ buttonUrl('duplicate') }} class="btn btn-secondary {{ buttonActive('duplicate') }}">
